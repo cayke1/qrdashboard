@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Links</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+    <h1 class="text-2xl font-bold mb-6">Gerenciador de Links</h1>
+
+    <!-- Formulário para adicionar novo link -->
+    <form action="/create" method="POST" class="mb-6 flex">
+        <input type="text" name="url" placeholder="Insira o URL" class="border border-gray-300 rounded-l px-4 py-2 w-64"
+            required />
+        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-r hover:bg-blue-600">
+            Adicionar
+        </button>
+    </form>
+
+    <!-- Lista de Links -->
+    <div class="bg-white p-4 rounded-lg shadow w-full max-w-lg">
+        <ul>
+            <% links.forEach(link=> { %>
+                <li class="flex items-center justify-between border-b py-2">
+                    <a href="<%= link.url %>" target="_blank"
+                        class="<%= link.active ? 'text-blue-500 font-bold' : '' %>">
+                        <%= link.title %>
+                    </a>
+                    <div class="flex space-x-2">
+                        <% if (!link.active) { %>
+                            <form action="/activate/<%= link.id %>" method="POST">
+                                <button type="submit" class="text-green-500 hover:text-green-700">
+                                    Ativar
+                                </button>
+                            </form>
+                            <% } %>
+                                <form action="/delete/<%= link.id %>" method="POST">
+                                    <button type="submit" class="text-red-500 hover:text-red-700">
+                                        Deletar
+                                    </button>
+                                </form>
+                    </div>
+                </li>
+                <% }) %>
+        </ul>
+        <% if (links.length===0) { %>
+            <p class="text-gray-500 text-center mt-4">Nenhum link cadastrado ainda.</p>
+            <% } %>
+    </div>
+</body>
+
+</html>
