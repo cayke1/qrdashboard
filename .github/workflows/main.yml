@@ -64,7 +64,7 @@ jobs:
 
       - name: Start docker container
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "docker run -p ${{ env.PORT }}:${{ env.PORT }} -d --restart unless-stopped --name=${{ env.CONTAINER }}  ${REGISTRY}/${REPO}:latest"
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "docker run -p ${{ env.PORT }}:${{ env.PORT }} -d --restart unless-stopped --name=${{ env.CONTAINER }} -e DATABASE_URL="file:./database.sql"  ${REGISTRY}/${REPO}:latest"
 
       - name: Logout from Docker Hub
         run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "docker logout"
