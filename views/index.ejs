@@ -9,10 +9,12 @@
 </head>
 
 <body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
-    <h1 class="text-2xl font-bold mb-6">Gerenciador de Links</h1>
+    <h1 class="text-2xl font-bold mb-6">Links</h1>
 
     <!-- Formulário para adicionar novo link -->
-    <form action="/create" method="POST" class="mb-6 flex">
+    <form action="/create" method="POST" class="mb-6 flex flex-col gap-2">
+        <input type="text" name="title" placeholder="Insira o título"
+            class="border border-gray-300 rounded-l px-4 py-2 w-64" required />
         <input type="text" name="url" placeholder="Insira o URL" class="border border-gray-300 rounded-l px-4 py-2 w-64"
             required />
         <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-r hover:bg-blue-600">

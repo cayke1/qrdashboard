@@ -20,10 +20,16 @@ routes.get("/dashboard", async (req: Request, res: Response) => {
   res.render("index", { links });
 });
 
+function _treatUrl(url: string) {
+  if (!url.startsWith("https")) {
+    return `https://${url}`;
+  }
+  return url;
+}
+
 routes.post("/create", async (req: Request, res: Response) => {
-  const url = req.body.url;
-  console.log(url);
-  const title = url.split(".")[1];
+  const url = _treatUrl(req.body.url);
+  const title = req.body.title;
 
   await prisma.links.create({
     data: {
